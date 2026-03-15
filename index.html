@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotel Talent — Screening CV</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg2: #f7f7f5;
+      --bg3: #f0ede8;
+      --border: rgba(0,0,0,0.12);
+      --border2: rgba(0,0,0,0.22);
+      --text: #1a1a18;
+      --text2: #5a5a56;
+      --text3: #8a8a84;
+      --green: #1D9E75;
+      --green-bg: #E1F5EE;
+      --green-text: #085041;
+      --amber: #BA7517;
+      --amber-bg: #FAEEDA;
+      --amber-text: #633806;
+      --red: #E24B4A;
+      --red-bg: #FCEBEB;
+      --red-text: #791F1F;
+      --blue-bg: #E6F1FB;
+      --blue-text: #0C447C;
+      --accent: #2E4A7E;
+      --radius: 10px;
+      --radius-sm: 6px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--bg2);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    header {
+      background: var(--bg);
+      border-bottom: 0.5px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      height: 56px;
+      gap: 12px;
+    }
+
+    .logo {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: -0.3px;
+    }
+
+    .logo-sub {
+      font-size: 13px;
+      color: var(--text3);
+      font-weight: 400;
+    }
+
+    .main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .card {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: var(--text2);
+      margin-bottom: 5px;
+      margin-top: 12px;
+    }
+
+    label:first-of-type { margin-top: 0; }
+
+    input[type="text"], textarea, select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 0.5px solid var(--border2);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    input[type="text"]:focus, textarea:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(46,74,126,0.08);
+    }
+
+    textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+
+    .badge {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .badge-green { background: var(--green-bg); color: var(--green-text); }
+    .badge-amber { background: var(--amber-bg); color: var(--amber-text); }
+    .badge-gray { background: var(--bg3); color: var(--text3); }
+
+    .rationale {
+      background: var(--bg2);
+      border-left: 2.5px solid var(--green);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6;
+      margin-bottom: 14px;
+      display: none;
+    }
+
+    .hint { font-size: 12px; color: var(--text3); margin-bottom: 14px; }
+
+    .slider-row {
+      display: grid;
+      grid-template-columns: 180px 1fr 44px;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .slider-label { font-size: 13px; color: var(--text2); }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--bg3);
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 1px var(--border2);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: 2px solid var(--bg);
+    }
+
+    .slider-val {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      text-align: right;
+      min-width: 34px;
+    }
+
+    .weights-total {
+      font-size: 12px;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    .weights-ok { color: var(--green); }
+    .weights-warn { color: var(--amber); }
+
+    .drop-zone {
+      border: 1.5px dashed var(--border2);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-align: center;
+      cursor: pointer;
+      color: var(--text3);
+      font-size: 14px;
+      transition: background 0.15s, border-color 0.15s;
+      margin-bottom: 14px;
+    }
+
+    .drop-zone:hover { background: var(--bg2); border-color: var(--accent); }
+    .drop-zone.dragover { background: var(--blue-bg); border-color: var(--accent); }
+
+    .drop-icon { font-size: 28px; margin-bottom: 8px; }
+    .drop-text { font-size: 15px; color: var(--text2); margin-bottom: 4px; }
+    .drop-sub { font-size: 13px; }
+
+    .cv-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 9px 12px;
+      margin-bottom: 7px;
+      font-size: 13px;
+    }
+
+    .cv-pill-icon { font-size: 18px; flex-shrink: 0; }
+    .cv-pill-name { flex: 1; font-weight: 500; color: var(--text); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .cv-pill-size { color: var(--text3); font-size: 12px; flex-shrink: 0; }
+
+    .cv-remove {
+      background: none;
+      border: none;
+      color: var(--text3);
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1;
+      padding: 0 2px;
+      flex-shrink: 0;
+    }
+
+    .cv-remove:hover { color: var(--red); }
+
+    .btn-suggest {
+      width: 100%;
+      background: none;
+      border: 0.5px solid var(--border2);
+      border-radius: var(--radius-sm);
+      padding: 9px 16px;
+      font-size: 13px;
+      color: var(--accent);
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 500;
+      transition: background 0.12s;
+      margin-top: 4px;
+    }
+
+    .btn-suggest:hover { background: var(--bg2); }
+    .btn-suggest:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .btn-analyze {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: 6px;
+      transition: opacity 0.12s;
+    }
+
+    .btn-analyze:hover { opacity: 0.88; }
+    .btn-analyze:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-secondary {
+      background: none;
+      border: 0.5px solid var(--border2);
+      border-radius: var(--radius-sm);
+      padding: 8px 16px;
+      font-size: 13px;
+      color: var(--text);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.12s;
+    }
+
+    .btn-secondary:hover { background: var(--bg2); }
+
+    .results-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+
+    .results-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .candidate-card {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .candidate-card.top {
+      border-left: 3px solid var(--green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+
+    .cand-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .rank-badge {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .rank-1 { background: var(--green-bg); color: var(--green-text); }
+    .rank-2 { background: var(--blue-bg); color: var(--blue-text); }
+    .rank-3 { background: var(--amber-bg); color: var(--amber-text); }
+    .rank-n { background: var(--bg3); color: var(--text3); }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--blue-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--blue-text);
+      flex-shrink: 0;
+    }
+
+    .cand-info { flex: 1; min-width: 0; }
+
+    .cand-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .cand-file { font-size: 12px; color: var(--text3); margin-top: 2px; }
+
+    .score-block { text-align: right; flex-shrink: 0; }
+
+    .score-big {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .score-sub { font-size: 11px; color: var(--text3); }
+
+    .dims-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .dims-grid { grid-template-columns: repeat(3, 1fr); }
+      .slider-row { grid-template-columns: 140px 1fr 36px; }
+    }
+
+    .dim-cell {
+      background: var(--bg2);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+    }
+
+    .dim-label { font-size: 11px; color: var(--text3); margin-bottom: 5px; }
+
+    .dim-bar {
+      height: 3px;
+      border-radius: 2px;
+      background: var(--bg3);
+      margin-bottom: 5px;
+      overflow: hidden;
+    }
+
+    .dim-fill { height: 100%; border-radius: 2px; }
+    .dim-val { font-size: 13px; font-weight: 600; color: var(--text); }
+
+    .tags { margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 4px; }
+
+    .tag {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .tag-green { background: var(--green-bg); color: var(--green-text); }
+    .tag-amber { background: var(--amber-bg); color: var(--amber-text); }
+
+    .reasoning {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+
+    .note-input {
+      width: 100%;
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--text);
+      resize: none;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .note-input:focus { border-color: var(--accent); }
+    .note-label { font-size: 11px; color: var(--text3); margin-bottom: 5px; }
+
+    .loading-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text2);
+    }
+
+    .dots { display: flex; gap: 6px; justify-content: center; margin-bottom: 14px; }
+
+    .dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--border2);
+      animation: blink 1.3s ease-in-out infinite;
+    }
+
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes blink { 0%,80%,100% { opacity: 0.25; } 40% { opacity: 1; } }
+
+    .loading-text { font-size: 14px; color: var(--text2); }
+    .loading-sub { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+    .hidden { display: none !important; }
+    .file-input-hidden { display: none; }
+
+    .error-banner {
+      background: var(--red-bg);
+      color: var(--red-text);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .progress-bar-wrap {
+      width: 100%;
+      height: 3px;
+      background: var(--bg3);
+      border-radius: 2px;
+      margin-top: 16px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--green);
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Hotel Talent</div>
+  <div class="logo-sub">— Screening CV</div>
+</header>
+
+<main class="main">
+
+  <!-- POSIZIONE -->
+  <div class="card">
+    <div class="card-title">Posizione da coprire</div>
+    <label>Titolo della posizione</label>
+    <input type="text" id="job-title" placeholder="es. Front Office Manager, F&B Supervisor, Executive Chef..." oninput="onJobInput()" />
+    <label>Descrizione e requisiti</label>
+    <textarea id="job-desc" rows="5" placeholder="Descrivi il ruolo, le responsabilità principali e i requisiti richiesti (esperienza minima, lingue, certificazioni, tipo di struttura...). Più dettagli fornisci, più precisa sarà la valutazione." oninput="checkReady()"></textarea>
+    <label>Tipo di struttura</label>
+    <select id="hotel-type" onchange="onJobInput()">
+      <option value="">Seleziona il tipo di hotel</option>
+      <option value="boutique hotel indipendente 3-4 stelle">Boutique hotel indipendente (3-4 stelle)</option>
+      <option value="hotel di lusso 5 stelle">Hotel di lusso (5 stelle)</option>
+      <option value="resort stagionale">Resort stagionale</option>
+      <option value="hotel business city">Hotel business / city hotel</option>
+      <option value="agriturismo o struttura rurale">Agriturismo / struttura rurale</option>
+      <option value="hotel di montagna">Hotel di montagna</option>
+      <option value="hotel termale o wellness">Hotel termale / wellness</option>
+      <option value="ostello o struttura budget">Ostello / struttura budget</option>
+    </select>
+    <button class="btn-suggest" id="suggest-btn" onclick="suggestWeights()" disabled>Proponi pesi automatici per questa posizione</button>
+  </div>
+
+  <!-- PESI -->
+  <div class="card">
+    <div class="card-title">
+      Pesi criteri di valutazione
+      <span class="badge badge-gray" id="weights-badge">In attesa della posizione</span>
+    </div>
+    <div class="rationale" id="rationale"></div>
+    <div class="hint">Puoi modificare i pesi con gli slider — la somma deve essere esattamente 100.</div>
+
+    <div class="slider-row">
+      <div class="slider-label">Esperienza in hospitality</div>
+      <input type="range" id="w1" min="0" max="60" step="5" value="25" oninput="onSlider()" />
+      <div class="slider-val" id="w1v">25</div>
+    </div>
+    <div class="slider-row">
+      <div class="slider-label">Anni nel ruolo specifico</div>
+      <input type="range" id="w2" min="0" max="60" step="5" value="25" oninput="onSlider()" />
+      <div class="slider-val" id="w2v">25</div>
+    </div>
+    <div class="slider-row">
+      <div class="slider-label">Competenze linguistiche</div>
+      <input type="range" id="w3" min="0" max="60" step="5" value="15" oninput="onSlider()" />
+      <div class="slider-val" id="w3v">15</div>
+    </div>
+    <div class="slider-row">
+      <div class="slider-label">Formazione alberghiera</div>
+      <input type="range" id="w4" min="0" max="60" step="5" value="15" oninput="onSlider()" />
+      <div class="slider-val" id="w4v">15</div>
+    </div>
+    <div class="slider-row">
+      <div class="slider-label">Stabilità lavorativa</div>
+      <input type="range" id="w5" min="0" max="60" step="5" value="10" oninput="onSlider()" />
+      <div class="slider-val" id="w5v">10</div>
+    </div>
+    <div class="slider-row">
+      <div class="slider-label">Coerenza geografica</div>
+      <input type="range" id="w6" min="0" max="60" step="5" value="10" oninput="onSlider()" />
+      <div class="slider-val" id="w6v">10</div>
+    </div>
+    <div class="weights-total weights-ok" id="weights-msg">Totale: 100 ✓</div>
+  </div>
+
+  <!-- CV UPLOAD -->
+  <div class="card">
+    <div class="card-title">Curriculum vitae</div>
+    <div class="drop-zone" id="drop-zone"
+      onclick="document.getElementById('file-input').click()"
+      ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropFiles(event)">
+      <div class="drop-icon">📂</div>
+      <div class="drop-text">Trascina i CV qui</div>
+      <div class="drop-sub">oppure clicca per selezionare — PDF e Word (.docx) supportati</div>
+    </div>
+    <input type="file" id="file-input" class="file-input-hidden" accept=".pdf,.docx,.doc" multiple onchange="fileSelected(event)" />
+    <div id="cv-list"></div>
+    <div id="error-banner" class="error-banner hidden"></div>
+    <button class="btn-analyze" id="analyze-btn" onclick="startAnalysis()" disabled>Analizza e classifica i candidati</button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results-wrap" class="hidden">
+    <div class="results-header">
+      <div class="results-title" id="results-title">Ranking candidati</div>
+      <button class="btn-secondary" onclick="resetAll()">Nuova analisi</button>
+    </div>
+    <div id="results-list"></div>
+  </div>
+
+</main>
+
+<script>
+const cvFiles = [];
+let results = [];
+let weightsFromAI = false;
+let suggestTimeout = null;
+
+const DIM = {
+  hospitality: 'Hospitality',
+  role: 'Ruolo',
+  languages: 'Lingue',
+  education: 'Formazione',
+  stability: 'Stabilità',
+  geography: 'Geografica'
+};
+
+function onJobInput() {
+  const title = document.getElementById('job-title').value.trim();
+  document.getElementById('suggest-btn').disabled = title.length < 3;
+  clearTimeout(suggestTimeout);
+  if (title.length >= 4) {
+    suggestTimeout = setTimeout(suggestWeights, 1800);
+  }
+  checkReady();
+}
+
+function onSlider() {
+  ['w1','w2','w3','w4','w5','w6'].forEach(id => {
+    document.getElementById(id+'v').textContent = document.getElementById(id).value;
+  });
+  if (weightsFromAI) {
+    weightsFromAI = false;
+    setBadge('Modificato manualmente', 'amber');
+  }
+  updateWeightsMsg();
+  checkReady();
+}
+
+function updateWeightsMsg() {
+  const total = getTotal();
+  const el = document.getElementById('weights-msg');
+  el.textContent = 'Totale: ' + total + (total === 100 ? ' ✓' : ' — aggiusta gli slider fino a 100');
+  el.className = 'weights-total ' + (total === 100 ? 'weights-ok' : 'weights-warn');
+}
+
+function getTotal() {
+  return ['w1','w2','w3','w4','w5','w6'].map(id => parseInt(document.getElementById(id).value)).reduce((a,b)=>a+b,0);
+}
+
+function getWeights() {
+  const keys = ['w1','w2','w3','w4','w5','w6'];
+  const names = ['hospitality','role','languages','education','stability','geography'];
+  const obj = {};
+  keys.forEach((k,i) => obj[names[i]] = parseInt(document.getElementById(k).value));
+  return obj;
+}
+
+function setWeights(obj) {
+  const map = { hospitality:'w1', role:'w2', languages:'w3', education:'w4', stability:'w5', geography:'w6' };
+  Object.entries(map).forEach(([k,id]) => {
+    document.getElementById(id).value = obj[k];
+    document.getElementById(id+'v').textContent = obj[k];
+  });
+  updateWeightsMsg();
+}
+
+function setBadge(text, color) {
+  const el = document.getElementById('weights-badge');
+  el.textContent = text;
+  el.className = 'badge badge-' + color;
+}
+
+async function suggestWeights() {
+  clearTimeout(suggestTimeout);
+  const title = document.getElementById('job-title').value.trim();
+  const desc = document.getElementById('job-desc').value.trim();
+  const type = document.getElementById('hotel-type').value;
+  if (!title) return;
+
+  setBadge('Calcolo in corso...', 'gray');
+  document.getElementById('suggest-btn').disabled = true;
+  document.getElementById('rationale').style.display = 'none';
+
+  const prompt = `Sei un esperto recruiter nel settore hospitality italiano.
+Posizione: "${title}"
+Tipo struttura: ${type || 'hotel indipendente italiano'}
+${desc ? 'Requisiti aggiuntivi: ' + desc : ''}
+
+Proponi i pesi ottimali per valutare i CV dei candidati per questa posizione. I pesi devono sommare esattamente a 100 e ogni peso deve essere un multiplo di 5.
+Rispondi SOLO con un JSON valido, senza testo aggiuntivo, senza backtick:
+{
+  "hospitality": <intero multiplo di 5>,
+  "role": <intero multiplo di 5>,
+  "languages": <intero multiplo di 5>,
+  "education": <intero multiplo di 5>,
+  "stability": <intero multiplo di 5>,
+  "geography": <intero multiplo di 5>,
+  "rationale": "Motivazione breve in 2 frasi di perché questi pesi per questo ruolo"
+}`;
+
+  try {
+    const resp = await fetch('/api/analyze', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 350,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await resp.json();
+    if (data.error) throw new Error(data.error);
+
+    const raw = data.content.filter(b=>b.type==='text').map(b=>b.text).join('');
+    const parsed = JSON.parse(raw.replace(/```json|```/g,'').trim());
+
+    const w = { hospitality: parsed.hospitality, role: parsed.role, languages: parsed.languages,
+                education: parsed.education, stability: parsed.stability, geography: parsed.geography };
+    const sum = Object.values(w).reduce((a,b)=>a+b,0);
+    if (sum !== 100) w.role += (100 - sum);
+
+    setWeights(w);
+    weightsFromAI = true;
+    setBadge('Proposta automatica', 'green');
+
+    if (parsed.rationale) {
+      const el = document.getElementById('rationale');
+      el.textContent = parsed.rationale;
+      el.style.display = 'block';
+    }
+  } catch(e) {
+    setBadge('Errore — imposta manualmente', 'amber');
+  }
+
+  document.getElementById('suggest-btn').disabled = false;
+  checkReady();
+}
+
+function checkReady() {
+  const hasJob = document.getElementById('job-title').value.trim().length > 2;
+  const hasCVs = cvFiles.length > 0;
+  const ok = getTotal() === 100;
+  document.getElementById('analyze-btn').disabled = !(hasJob && hasCVs && ok);
+}
+
+function dragOver(e) { e.preventDefault(); document.getElementById('drop-zone').classList.add('dragover'); }
+function dragLeave() { document.getElementById('drop-zone').classList.remove('dragover'); }
+function dropFiles(e) { e.preventDefault(); dragLeave(); addFiles(Array.from(e.dataTransfer.files)); }
+function fileSelected(e) { addFiles(Array.from(e.target.files)); e.target.value = ''; }
+
+function addFiles(files) {
+  const allowed = ['.pdf','.docx','.doc'];
+  files.forEach(f => {
+    const ext = '.' + f.name.split('.').pop().toLowerCase();
+    if (!allowed.includes(ext)) return;
+    if (cvFiles.find(x => x.name === f.name)) return;
+    cvFiles.push(f);
+  });
+  renderCVList();
+  checkReady();
+}
+
+function removeCV(name) {
+  const i = cvFiles.findIndex(f => f.name === name);
+  if (i > -1) cvFiles.splice(i, 1);
+  renderCVList();
+  checkReady();
+}
+
+function renderCVList() {
+  const el = document.getElementById('cv-list');
+  el.innerHTML = cvFiles.map(f => `
+    <div class="cv-pill">
+      <span class="cv-pill-icon">${f.name.toLowerCase().endsWith('.pdf') ? '📄' : '📝'}</span>
+      <span class="cv-pill-name">${escHtml(f.name)}</span>
+      <span class="cv-pill-size">${(f.size/1024).toFixed(0)} KB</span>
+      <button class="cv-remove" onclick="removeCV('${escAttr(f.name)}')">×</button>
+    </div>`).join('');
+}
+
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escAttr(s) { return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+
+function fileToBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result.split(',')[1]);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+function scoreColor(s) {
+  return s >= 75 ? '#1D9E75' : s >= 50 ? '#BA7517' : '#E24B4A';
+}
+
+function getInitials(name) {
+  if (!name || name === 'Candidato') return 'CV';
+  return name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+}
+
+async function startAnalysis() {
+  const title = document.getElementById('job-title').value.trim();
+  const desc = document.getElementById('job-desc').value.trim();
+  const type = document.getElementById('hotel-type').value;
+  const weights = getWeights();
+
+  document.getElementById('analyze-btn').disabled = true;
+  document.getElementById('error-banner').classList.add('hidden');
+  document.getElementById('results-wrap').classList.remove('hidden');
+  document.getElementById('results-list').innerHTML = `
+    <div class="loading-state">
+      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <div class="loading-text" id="loading-text">Analisi in corso...</div>
+      <div class="loading-sub" id="loading-sub">Lettura di ${cvFiles.length} curriculum</div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
+    </div>`;
+
+  const parsed = [];
+
+  for (let i = 0; i < cvFiles.length; i++) {
+    const file = cvFiles[i];
+    const pct = Math.round(((i) / cvFiles.length) * 100);
+    const ltEl = document.getElementById('loading-text');
+    const pbEl = document.getElementById('progress-bar');
+    if (ltEl) ltEl.textContent = `Analisi in corso — ${i+1} di ${cvFiles.length}: ${file.name}`;
+    if (pbEl) pbEl.style.width = pct + '%';
+
+    try {
+      const b64 = await fileToBase64(file);
+      const ext = file.name.split('.').pop().toLowerCase();
+      const mediaType = ext === 'pdf'
+        ? 'application/pdf'
+        : 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+
+      const systemPrompt = `Sei un esperto recruiter specializzato nel settore hospitality italiano. Analizza il CV allegato rispetto alla posizione descritta e restituisci SOLO un oggetto JSON valido. Nessun testo prima o dopo, nessun backtick, nessun markdown.
+
+Struttura JSON esatta:
+{
+  "name": "Nome Cognome (o 'Candidato' se non trovato nel CV)",
+  "scores": {
+    "hospitality": <0-100>,
+    "role": <0-100>,
+    "languages": <0-100>,
+    "education": <0-100>,
+    "stability": <0-100>,
+    "geography": <0-100>
+  },
+  "strengths": ["punto di forza 1", "punto di forza 2", "punto di forza 3"],
+  "concerns": ["criticità 1", "criticità 2"],
+  "reasoning": "Valutazione sintetica in 2-3 frasi del fit complessivo con la posizione",
+  "recommended": true o false
+}
+
+Come calcolare ogni score (0-100):
+- hospitality: profondità e qualità dell'esperienza in strutture ricettive alberghiere
+- role: aderenza specifica al ruolo (titoli equivalenti, responsabilità simili, progressione di carriera)
+- languages: lingue dichiarate con livello, rapportate alle esigenze della posizione e del tipo di struttura
+- education: pertinenza della formazione (istituti alberghieri, lauree in turismo, master, certificazioni di settore)
+- stability: durata media nelle esperienze lavorative (job hopping frequente penalizza, carriere lunghe premiano)
+- geography: stima della distanza tra residenza/ultima sede e possibile location della struttura committente`;
+
+      const resp = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          system: systemPrompt,
+          messages: [{
+            role: 'user',
+            content: [
+              { type: 'document', source: { type: 'base64', media_type: mediaType, data: b64 } },
+              { type: 'text', text: `Posizione ricercata: ${title}
+Tipo di struttura: ${type || 'hotel indipendente italiano'}
+${desc ? 'Requisiti e descrizione: ' + desc : ''}
+
+Pesi attivi per il calcolo dello score finale:
+- Esperienza hospitality: ${weights.hospitality}%
+- Anni nel ruolo specifico: ${weights.role}%
+- Competenze linguistiche: ${weights.languages}%
+- Formazione alberghiera: ${weights.education}%
+- Stabilità lavorativa: ${weights.stability}%
+- Coerenza geografica: ${weights.geography}%
+
+Analizza il CV allegato e restituisci solo il JSON.` }
+            ]
+          }]
+        })
+      });
+
+      const data = await resp.json();
+      if (data.error) throw new Error(data.error);
+
+      const raw = data.content.filter(b=>b.type==='text').map(b=>b.text).join('');
+      const cv = JSON.parse(raw.replace(/```json|```/g,'').trim());
+
+      const s = cv.scores;
+      const w = weights;
+      const score = Math.round(
+        (s.hospitality*w.hospitality + s.role*w.role + s.languages*w.languages +
+         s.education*w.education + s.stability*w.stability + s.geography*w.geography) / 100
+      );
+
+      parsed.push({ ...cv, file: file.name, weightedScore: score, note: '' });
+
+    } catch(err) {
+      parsed.push({
+        name: file.name.replace(/\.(pdf|docx|doc)$/i, ''),
+        file: file.name, weightedScore: 0,
+        scores: { hospitality:0, role:0, languages:0, education:0, stability:0, geography:0 },
+        strengths: [], concerns: ['Errore nella lettura del file'],
+        reasoning: 'Non è stato possibile analizzare questo curriculum. Verifica che il file sia leggibile e non protetto da password.',
+        recommended: false, note: ''
+      });
+    }
+  }
+
+  results = parsed.sort((a,b) => b.weightedScore - a.weightedScore);
+  document.getElementById('results-title').textContent = `Ranking candidati — ${title}`;
+  renderResults();
+  document.getElementById('analyze-btn').disabled = false;
+}
+
+function renderResults() {
+  const container = document.getElementById('results-list');
+  if (!results.length) { container.innerHTML = '<div style="text-align:center;padding:2rem;color:#8a8a84">Nessun risultato</div>'; return; }
+
+  container.innerHTML = results.map((c, i) => {
+    const rank = i + 1;
+    const rc = rank===1?'rank-1':rank===2?'rank-2':rank===3?'rank-3':'rank-n';
+    const cc = rank===1?'candidate-card top':'candidate-card';
+    const initials = getInitials(c.name);
+    const sc = scoreColor(c.weightedScore);
+
+    const dims = Object.entries(c.scores).map(([k,v]) => `
+      <div class="dim-cell">
+        <div class="dim-label">${DIM[k]}</div>
+        <div class="dim-bar"><div class="dim-fill" style="width:${v}%;background:${scoreColor(v)}"></div></div>
+        <div class="dim-val">${v}</div>
+      </div>`).join('');
+
+    const strengths = (c.strengths||[]).map(s=>`<span class="tag tag-green">${escHtml(s)}</span>`).join('');
+    const concerns = (c.concerns||[]).map(s=>`<span class="tag tag-amber">${escHtml(s)}</span>`).join('');
+    const rec = c.recommended ? `<span class="badge badge-green" style="font-size:11px">Consigliato</span>` : '';
+
+    return `<div class="${cc}">
+      <div class="cand-header">
+        <div class="rank-badge ${rc}">${rank}</div>
+        <div class="avatar">${initials}</div>
+        <div class="cand-info">
+          <div class="cand-name">${escHtml(c.name)} ${rec}</div>
+          <div class="cand-file">${escHtml(c.file)}</div>
+        </div>
+        <div class="score-block">
+          <div class="score-big" style="color:${sc}">${c.weightedScore}</div>
+          <div class="score-sub">/ 100</div>
+        </div>
+      </div>
+      <div class="dims-grid">${dims}</div>
+      ${strengths||concerns?`<div class="tags">${strengths}${concerns}</div>`:''}
+      <div class="reasoning">${escHtml(c.reasoning)}</div>
+      <div class="note-label">Note</div>
+      <textarea class="note-input" rows="2" placeholder="Aggiungi osservazioni su questo candidato..." oninput="saveNote(${i},this.value)">${escHtml(c.note)}</textarea>
+    </div>`;
+  }).join('');
+}
+
+function saveNote(i, val) { if (results[i]) results[i].note = val; }
+
+function resetAll() {
+  results = [];
+  cvFiles.length = 0;
+  renderCVList();
+  document.getElementById('results-wrap').classList.add('hidden');
+  document.getElementById('results-list').innerHTML = '';
+  document.getElementById('job-title').value = '';
+  document.getElementById('job-desc').value = '';
+  document.getElementById('hotel-type').value = '';
+  document.getElementById('rationale').style.display = 'none';
+  setBadge('In attesa della posizione', 'gray');
+  weightsFromAI = false;
+  checkReady();
+}
+</script>
+</body>
+</html>
